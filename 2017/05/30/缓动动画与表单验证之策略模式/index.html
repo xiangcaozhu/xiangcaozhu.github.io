@@ -1,0 +1,1229 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|黑体:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="前端开发,前端学习,个人博客" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1、策略模式条条大路通罗马，每条路就是一种策略，在程序设计中，实现一个功能有很多种方法，可以随意替换。定义：定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。将不变的部分和变化的部分分隔开是每个设计模式的主题，策略模式的目的就是将算法的使用与算法的实现分离开来。策略类：封装了具体的算法，并负责具体计算过程。广义上也指一系列指向目标一致，可被替换的“业务规则”。环境类：context，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓动动画与表单验证之策略模式">
+<meta property="og:url" content="http://yoursite.com/2017/05/30/缓动动画与表单验证之策略模式/index.html">
+<meta property="og:site_name" content="香草朱.前端">
+<meta property="og:description" content="1、策略模式条条大路通罗马，每条路就是一种策略，在程序设计中，实现一个功能有很多种方法，可以随意替换。定义：定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。将不变的部分和变化的部分分隔开是每个设计模式的主题，策略模式的目的就是将算法的使用与算法的实现分离开来。策略类：封装了具体的算法，并负责具体计算过程。广义上也指一系列指向目标一致，可被替换的“业务规则”。环境类：context，">
+<meta property="og:updated_time" content="2017-05-31T14:59:28.442Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="缓动动画与表单验证之策略模式">
+<meta name="twitter:description" content="1、策略模式条条大路通罗马，每条路就是一种策略，在程序设计中，实现一个功能有很多种方法，可以随意替换。定义：定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。将不变的部分和变化的部分分隔开是每个设计模式的主题，策略模式的目的就是将算法的使用与算法的实现分离开来。策略类：封装了具体的算法，并负责具体计算过程。广义上也指一系列指向目标一致，可被替换的“业务规则”。环境类：context，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/30/缓动动画与表单验证之策略模式/"/>
+
+
+
+
+
+  <title>缓动动画与表单验证之策略模式 | 香草朱.前端</title>
+<link rel="stylesheet" href="/css/prism-solarizedlight.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bc8c7953f3ece7c5aa5a9439548c389a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">香草朱.前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">前端开发实践总结</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/30/缓动动画与表单验证之策略模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiangcaozhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="香草朱.前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">缓动动画与表单验证之策略模式</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-30T21:13:43+08:00">
+                2017-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、策略模式"><a href="#1、策略模式" class="headerlink" title="1、策略模式"></a>1、策略模式</h2><p>条条大路通罗马，每条路就是一种策略，在程序设计中，实现一个功能有很多种方法，可以随意替换。<br>定义：定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。将不变的部分和变化的部分分隔开是每个设计模式的主题，策略模式的目的就是将算法的使用与算法的实现分离开来。<br>策略类：封装了具体的算法，并负责具体计算过程。广义上也指一系列指向目标一致，可被替换的“业务规则”。<br>环境类：context，接受客户请求，随后把请求委托给某个策略类。</p>
+<h2 id="2、计算奖金"><a href="#2、计算奖金" class="headerlink" title="2、计算奖金"></a>2、计算奖金</h2><p>自己构思的解决：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//用对象保存对应的绩效</span></div><div class="line"><span class="keyword">var</span> levelObj = &#123;</div><div class="line">	<span class="attr">s</span>:<span class="number">4</span>,</div><div class="line">	<span class="attr">a</span>:<span class="number">3</span>,</div><div class="line">	<span class="attr">b</span>:<span class="number">2</span></div><div class="line">&#125;</div><div class="line"><span class="comment">//使用闭包完成，传入一个对象，计算获取对应的level</span></div><div class="line"><span class="comment">//在这个函数中没必要用到闭包，这是就是为了练手，直接计算返回level就可以了。</span></div><div class="line"><span class="keyword">var</span> computedLevel = <span class="function"><span class="keyword">function</span>(<span class="params">level</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> level = level;</div><div class="line">	<span class="comment">//从外部获取绩效对象</span></div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">levelObj</span>)</span>&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> l <span class="keyword">in</span> levelObj)&#123;</div><div class="line">			<span class="keyword">if</span>(l===level)&#123;</div><div class="line">				<span class="keyword">return</span> levelObj[l];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//根据返回的level值与薪水进行计算</span></div><div class="line"><span class="keyword">var</span> calculate = <span class="function"><span class="keyword">function</span>(<span class="params">salary,level,levelObj</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> levelNum = computedLevel(level)</div><div class="line">	<span class="comment">//传入对应的绩效对象</span></div><div class="line">	<span class="keyword">return</span> salary*levelNum(levelObj);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(calculate(<span class="number">4000</span>,<span class="string">'s'</span>,levelObj));</div><div class="line"><span class="built_in">console</span>.log(calculate(<span class="number">3000</span>,<span class="string">'b'</span>,levelObj));</div><div class="line"><span class="built_in">console</span>.log(calculate(<span class="number">2500</span>,<span class="string">'a'</span>,levelObj));</div></pre></td></tr></table></figure></p>
+<p>javascript版本的策略模式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//策略类</span></div><div class="line"><span class="keyword">var</span> strategy = &#123;</div><div class="line">	<span class="string">'s'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> salary*<span class="number">4</span>;</div><div class="line">	&#125;,</div><div class="line">	<span class="string">'b'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> salary*<span class="number">2</span>;</div><div class="line">	&#125;,</div><div class="line">	<span class="string">'a'</span>:<span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> salary*<span class="number">3</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//环境类</span></div><div class="line"><span class="keyword">var</span> calculateBonus = <span class="function"><span class="keyword">function</span>(<span class="params">level,salary</span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> strategy[level](salary);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(calculate(<span class="string">'s'</span>,<span class="number">2000</span>));</div></pre></td></tr></table></figure></p>
+<h2 id="3、缓动动画"><a href="#3、缓动动画" class="headerlink" title="3、缓动动画"></a>3、缓动动画</h2><h3 id="动画的本质：让对应的html元素，按照一定的缓动算法进行运动而已。"><a href="#动画的本质：让对应的html元素，按照一定的缓动算法进行运动而已。" class="headerlink" title="动画的本质：让对应的html元素，按照一定的缓动算法进行运动而已。"></a>动画的本质：让对应的html元素，按照一定的缓动算法进行运动而已。</h3><h3 id="基本原理：让差距不大的原画，以较快的帧数播放，达到视觉效果。在JavaScript里面就是通过改变css属性来实现（left、top、background-position、transform等）。"><a href="#基本原理：让差距不大的原画，以较快的帧数播放，达到视觉效果。在JavaScript里面就是通过改变css属性来实现（left、top、background-position、transform等）。" class="headerlink" title="基本原理：让差距不大的原画，以较快的帧数播放，达到视觉效果。在JavaScript里面就是通过改变css属性来实现（left、top、background-position、transform等）。"></a>基本原理：让差距不大的原画，以较快的帧数播放，达到视觉效果。在JavaScript里面就是通过改变css属性来实现（left、top、background-position、transform等）。</h3><h3 id="基本思路："><a href="#基本思路：" class="headerlink" title="基本思路："></a>基本思路：</h3><ul>
+<li>缓动算法四个参数（t: current time（当前时间new Date）；b: beginning value（初始位置startPos）；c: change in value（变化量endPos-startPos）；d: duration（持续时间duration））</li>
+<li>Animate构造函数、start、step、update三个方法</li>
+</ul>
+<iframe width="100%" height="300" src="//jsfiddle.net/xiangcaozhu/7adp99h8/5/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//缓动算法:http://easings.net/zh-cn</span></div><div class="line"><span class="comment">//缓动算法https://github.com/zhangxinxu/Tween/blob/master/</span></div><div class="line"><span class="comment">//缓动算法demo，http://www.zhangxinxu.com/study/201612/how-to-use-tween-js.html</span></div><div class="line"><span class="keyword">var</span> Tween = &#123;</div><div class="line">    <span class="attr">Linear</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123; <span class="keyword">return</span> c*t/d + b; &#125;,</div><div class="line">    <span class="attr">Quad</span>: &#123;</div><div class="line">        <span class="attr">easeIn</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> c * (t /= d) * t + b;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">easeOut</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> -c *(t /= d)*(t<span class="number">-2</span>) + b;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">easeInOut</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">if</span> ((t /= d / <span class="number">2</span>) &lt; <span class="number">1</span>) <span class="keyword">return</span> c / <span class="number">2</span> * t * t + b;</div><div class="line">            <span class="keyword">return</span> -c / <span class="number">2</span> * ((--t) * (t<span class="number">-2</span>) - <span class="number">1</span>) + b;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">Cubic</span>: &#123;</div><div class="line">        <span class="attr">easeIn</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> c * (t /= d) * t * t + b;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">easeOut</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> c * ((t = t/d - <span class="number">1</span>) * t * t + <span class="number">1</span>) + b;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">easeInOut</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">if</span> ((t /= d / <span class="number">2</span>) &lt; <span class="number">1</span>) <span class="keyword">return</span> c / <span class="number">2</span> * t * t*t + b;</div><div class="line">            <span class="keyword">return</span> c / <span class="number">2</span>*((t -= <span class="number">2</span>) * t * t + <span class="number">2</span>) + b;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">Quart</span>: &#123;</div><div class="line">        <span class="attr">easeIn</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> c * (t /= d) * t * t*t + b;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">easeOut</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> -c * ((t = t/d - <span class="number">1</span>) * t * t*t - <span class="number">1</span>) + b;</div><div class="line">        &#125;,</div><div class="line">        <span class="attr">easeInOut</span>: <span class="function"><span class="keyword">function</span>(<span class="params">t, b, c, d</span>) </span>&#123;</div><div class="line">            <span class="keyword">if</span> ((t /= d / <span class="number">2</span>) &lt; <span class="number">1</span>) <span class="keyword">return</span> c / <span class="number">2</span> * t * t * t * t + b;</div><div class="line">            <span class="keyword">return</span> -c / <span class="number">2</span> * ((t -= <span class="number">2</span>) * t * t*t - <span class="number">2</span>) + b;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="动画类"><a href="#动画类" class="headerlink" title="动画类"></a>动画类</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Animate = <span class="function"><span class="keyword">function</span>(<span class="params">dom</span>)</span>&#123;</div><div class="line">	<span class="comment">//运动节点</span></div><div class="line">	<span class="keyword">this</span>.dom = dom;</div><div class="line">	<span class="comment">//开始时间</span></div><div class="line">	<span class="keyword">this</span>.startTime = <span class="number">0</span>;</div><div class="line">	<span class="comment">// 开始位置</span></div><div class="line">	<span class="keyword">this</span>.startPos = <span class="number">0</span>;</div><div class="line">	<span class="comment">// 结束位置</span></div><div class="line">	<span class="keyword">this</span>.endPos = <span class="number">0</span>;</div><div class="line">	<span class="comment">// 改变css属性名</span></div><div class="line">	<span class="keyword">this</span>.cssName = <span class="literal">null</span>;</div><div class="line">	<span class="comment">// 缓动算法</span></div><div class="line">	<span class="keyword">this</span>.easing = <span class="literal">null</span>;</div><div class="line">	<span class="comment">// 动画持续时间</span></div><div class="line">	<span class="keyword">this</span>.duration = <span class="literal">null</span>;</div><div class="line">&#125;</div><div class="line"><span class="comment">//启动动画</span></div><div class="line">Animate.prototype.start = <span class="function"><span class="keyword">function</span>(<span class="params">cssName,endPos,duration,tweenType,easing</span>)</span>&#123;</div><div class="line">	<span class="comment">//记录信息</span></div><div class="line">	<span class="keyword">this</span>.startTime = +<span class="keyword">new</span> <span class="built_in">Date</span>;</div><div class="line">	<span class="keyword">this</span>.startPos = <span class="keyword">this</span>.dom.getBoundingClientRect()[cssName];</div><div class="line">	<span class="keyword">this</span>.endPos = endPos;</div><div class="line">	<span class="keyword">this</span>.cssName = cssName;</div><div class="line">	<span class="keyword">this</span>.duration = duration;</div><div class="line">	<span class="keyword">this</span>.easing = Tween[tweenType][easing]||Tween.Linear;</div><div class="line">	<span class="keyword">var</span> _self = <span class="keyword">this</span>;</div><div class="line">	<span class="comment">//启动定时器</span></div><div class="line">	<span class="keyword">var</span> timer = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="comment">//_self.step()调用动画，同时不断返回结果。</span></div><div class="line">		<span class="keyword">if</span>(_self.step()===<span class="literal">false</span>)&#123;</div><div class="line">			clearInterval(timer);</div><div class="line">		&#125;</div><div class="line">	&#125;,<span class="number">19</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//每一帧要做的动画</span></div><div class="line">Animate.prototype.step = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>;</div><div class="line">	<span class="comment">//动画已经结束</span></div><div class="line">	<span class="keyword">if</span>(now&gt;=<span class="keyword">this</span>.startTime+<span class="keyword">this</span>.duration)&#123;</div><div class="line">		<span class="comment">//修正目标位置</span></div><div class="line">		<span class="keyword">this</span>.update(<span class="keyword">this</span>.endPos);</div><div class="line">		<span class="comment">//start清除定时器；</span></div><div class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">//缓动动画的四个参数：动画已消耗时间，开始位置，目标位置，动画持续时间</span></div><div class="line">	<span class="comment">//动画当前位置pos</span></div><div class="line">	<span class="keyword">var</span> pos = <span class="keyword">this</span>.easing(now-<span class="keyword">this</span>.startTime,<span class="keyword">this</span>.startPos,<span class="keyword">this</span>.endPos-<span class="keyword">this</span>.startPos,<span class="keyword">this</span>.duration);</div><div class="line">	<span class="comment">// 更新CSS</span></div><div class="line">	<span class="keyword">this</span>.update(pos);</div><div class="line">&#125;</div><div class="line"><span class="comment">//更新css属性</span></div><div class="line">Animate.prototype.update = <span class="function"><span class="keyword">function</span>(<span class="params">pos</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.dom.style[<span class="keyword">this</span>.cssName] = pos +<span class="string">'px'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">'div'</span>);</div><div class="line"><span class="keyword">var</span> animate = <span class="keyword">new</span> Animate(div);</div><div class="line">animate.start(<span class="string">'left'</span>,<span class="number">500</span>,<span class="number">1000</span>,<span class="string">'Bounce'</span>,<span class="string">'easeOut'</span>);</div></pre></td></tr></table></figure>
+<h2 id="4、表单验证"><a href="#4、表单验证" class="headerlink" title="4、表单验证"></a>4、表单验证</h2><h3 id="4-1if-else-if-else判断写法"><a href="#4-1if-else-if-else判断写法" class="headerlink" title="4.1if-else if-else判断写法"></a>4.1if-else if-else判断写法</h3><p>函数大、缺乏弹性、复用性差</p>
+<h3 id="4-2策略重构"><a href="#4-2策略重构" class="headerlink" title="4.2策略重构"></a>4.2策略重构</h3><ul>
+<li>多条件验证（增加了方法处理，其他部分与单项验证一样）</li>
+</ul>
+<iframe width="100%" height="300" src="//jsfiddle.net/xiangcaozhu/hgwgLdw5/4/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"registerForm"</span>&gt;</span></div><div class="line">	用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"userName"</span>&gt;</span></div><div class="line">	密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></div><div class="line">	手机号：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"phoneNumber"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">button</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> strategies = &#123;</div><div class="line">	<span class="attr">isNoEmpty</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value,errorMsg</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(value===<span class="string">''</span>)&#123;</div><div class="line">			<span class="keyword">return</span> errorMsg;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">minLength</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value,length,errorMsg</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(value.length&lt;length)&#123;</div><div class="line">			<span class="keyword">return</span> errorMsg;</div><div class="line">		&#125;</div><div class="line">	&#125;,</div><div class="line">	<span class="attr">isMobile</span>:<span class="function"><span class="keyword">function</span>(<span class="params">value,errorMsg</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(!<span class="regexp">/^1[3-8][0-9]&#123;9&#125;$/</span>.test(value))&#123;</div><div class="line">			<span class="keyword">return</span> errorMsg;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> Validator = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//保存校验规则</span></div><div class="line">	<span class="keyword">this</span>.caches=[];</div><div class="line">&#125;</div><div class="line"></div><div class="line">Validator.prototype.add = <span class="function"><span class="keyword">function</span>(<span class="params">dom,rules</span>)</span>&#123;</div><div class="line">	<span class="comment">//存在闭包所以要保存this</span></div><div class="line">	<span class="keyword">var</span> _self = <span class="keyword">this</span>;</div><div class="line">	<span class="comment">//[&#123;strategy:'isNoEmpty',errorMsg:'密码不能为空'&#125;,&#123;strategy:'minLength:6',errorMsg:'密码长度不小于6位'&#125;]</span></div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,rule;rule=rules[i++];)&#123;</div><div class="line">		(<span class="function"><span class="keyword">function</span>(<span class="params">rule</span>)</span>&#123;</div><div class="line">			<span class="comment">//strategyAry包含了所需要的所以验证信息</span></div><div class="line">			<span class="keyword">var</span> strategyAry = rule.strategy.split(<span class="string">':'</span>);</div><div class="line">			<span class="keyword">var</span> errorMsg = rule.errorMsg;</div><div class="line">			_self.caches.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="keyword">var</span> strategy = strategyAry.shift();</div><div class="line">				strategyAry.unshift(dom.value);</div><div class="line">				strategyAry.push(errorMsg);</div><div class="line">				<span class="comment">//让指定input策略找对应的策略对象里的函数</span></div><div class="line">				<span class="keyword">return</span> strategies[strategy].apply(dom,strategyAry);</div><div class="line">			&#125;)</div><div class="line">		&#125;)(rule)</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">&#125;</div><div class="line">Validator.prototype.start= <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span>,validatorFunc;validatorFunc=<span class="keyword">this</span>.caches[i++];)&#123;</div><div class="line">		<span class="keyword">var</span> msg = validatorFunc();</div><div class="line">		<span class="keyword">if</span>(msg)&#123;</div><div class="line">			<span class="keyword">return</span> msg;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//发送请求</span></div><div class="line"><span class="keyword">var</span> validataFunc = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//创建一个对象</span></div><div class="line">	<span class="keyword">var</span> validator = <span class="keyword">new</span> Validator();</div><div class="line">	<span class="comment">// 添加验证规则</span></div><div class="line">	validator.add(registerForm.userName,[&#123;<span class="attr">strategy</span>:<span class="string">'isNoEmpty'</span>,<span class="attr">errorMsg</span>:<span class="string">'用户名不能为空'</span>&#125;]);</div><div class="line">	validator.add(registerForm.password,[&#123;<span class="attr">strategy</span>:<span class="string">'isNoEmpty'</span>,<span class="attr">errorMsg</span>:<span class="string">'密码不能为空'</span>&#125;,&#123;<span class="attr">strategy</span>:<span class="string">'minLength:6'</span>,<span class="attr">errorMsg</span>:<span class="string">'密码长度不小于6位'</span>&#125;]);</div><div class="line">	validator.add(registerForm.phoneNumber,[&#123;<span class="attr">strategy</span>:<span class="string">'isNoEmpty'</span>,<span class="attr">errorMsg</span>:<span class="string">'手机号不能为空'</span>&#125;,&#123;<span class="attr">strategy</span>:<span class="string">'isMobile'</span>,<span class="attr">errorMsg</span>:<span class="string">'手机号码格式不正确'</span>&#125;]);</div><div class="line">	<span class="comment">// 获取校验结果</span></div><div class="line">	<span class="keyword">var</span> errorMsg = validator.start();</div><div class="line">	<span class="comment">// 返回校验结果</span></div><div class="line">	<span class="keyword">return</span> errorMsg;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//表单提交</span></div><div class="line"><span class="keyword">var</span> registerForm = <span class="built_in">document</span>.getElementById(<span class="string">'registerForm'</span>);</div><div class="line">registerForm.onsubmit = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//是否通过检验</span></div><div class="line">	<span class="keyword">var</span> errorMsg = validataFunc();</div><div class="line">	<span class="keyword">if</span>(errorMsg)&#123;</div><div class="line">		alert(errorMsg)</div><div class="line">		<span class="comment">// 阻止表达提交</span></div><div class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="5、策略模式优缺点"><a href="#5、策略模式优缺点" class="headerlink" title="5、策略模式优缺点"></a>5、策略模式优缺点</h2><h3 id="5-1优点"><a href="#5-1优点" class="headerlink" title="5.1优点"></a>5.1优点</h3><ul>
+<li>避免多重条件语句</li>
+<li>遵循开发-封闭原则</li>
+<li>可复用</li>
+<li>组合和委托替代实现了继承</li>
+</ul>
+<h3 id="5-2缺点："><a href="#5-2缺点：" class="headerlink" title="5.2缺点："></a>5.2缺点：</h3><ul>
+<li>增加了策略类和策略对象</li>
+<li>违反最少知识原则</li>
+</ul>
+<h3 id="5-3函数与策略模式"><a href="#5-3函数与策略模式" class="headerlink" title="5.3函数与策略模式"></a>5.3函数与策略模式</h3><p>策略模式是隐形的，策略对象可以直接用函数表示，通过把策略对象作为参数在函数中传递，达到多态的效果。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> strategies= &#123;</div><div class="line">	<span class="attr">A</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//简写：</span></div><div class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.png" alt="xiangcaozhu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="xiangcaozhu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      xiangcaozhu
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2017/05/30/缓动动画与表单验证之策略模式/" title="缓动动画与表单验证之策略模式">http://yoursite.com/2017/05/30/缓动动画与表单验证之策略模式/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/29/深入学习JavaScript面向对象闭包和高阶函数/" rel="next" title="深入学习JavaScript面向对象闭包和高阶函数">
+                <i class="fa fa-chevron-left"></i> 深入学习JavaScript面向对象闭包和高阶函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/31/创建各种弹窗之单例模式/" rel="prev" title="创建各种弹窗之单例模式">
+                创建各种弹窗之单例模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="xiangcaozhu" />
+          <p class="site-author-name" itemprop="name">xiangcaozhu</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiangcaozhu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xiangcaozhu0204" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.awesomes.cn/" title="Top100库" target="_blank">Top100库</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://es6.ruanyifeng.com/" title="阮一峰blog" target="_blank">阮一峰blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.devdocs.io/" title="devdocs文档" target="_blank">devdocs文档</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://idesign.qq.com/#!index/site/tag/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF" title="腾讯CDC导航" target="_blank">腾讯CDC导航</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://75team.com/" title="奇舞团博客" target="_blank">奇舞团博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.alloyteam.com/" title="腾讯前端" target="_blank">腾讯前端</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://fex.baidu.com/" title="百度前端" target="_blank">百度前端</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.css88.com/" title="前端开发" target="_blank">前端开发</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、策略模式"><span class="nav-number">1.</span> <span class="nav-text">1、策略模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、计算奖金"><span class="nav-number">2.</span> <span class="nav-text">2、计算奖金</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、缓动动画"><span class="nav-number">3.</span> <span class="nav-text">3、缓动动画</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动画的本质：让对应的html元素，按照一定的缓动算法进行运动而已。"><span class="nav-number">3.1.</span> <span class="nav-text">动画的本质：让对应的html元素，按照一定的缓动算法进行运动而已。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本原理：让差距不大的原画，以较快的帧数播放，达到视觉效果。在JavaScript里面就是通过改变css属性来实现（left、top、background-position、transform等）。"><span class="nav-number">3.2.</span> <span class="nav-text">基本原理：让差距不大的原画，以较快的帧数播放，达到视觉效果。在JavaScript里面就是通过改变css属性来实现（left、top、background-position、transform等）。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思路："><span class="nav-number">3.3.</span> <span class="nav-text">基本思路：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画类"><span class="nav-number">3.4.</span> <span class="nav-text">动画类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、表单验证"><span class="nav-number">4.</span> <span class="nav-text">4、表单验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1if-else-if-else判断写法"><span class="nav-number">4.1.</span> <span class="nav-text">4.1if-else if-else判断写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2策略重构"><span class="nav-number">4.2.</span> <span class="nav-text">4.2策略重构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、策略模式优缺点"><span class="nav-number">5.</span> <span class="nav-text">5、策略模式优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1优点"><span class="nav-number">5.1.</span> <span class="nav-text">5.1优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2缺点："><span class="nav-number">5.2.</span> <span class="nav-text">5.2缺点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3函数与策略模式"><span class="nav-number">5.3.</span> <span class="nav-text">5.3函数与策略模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiangcaozhu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

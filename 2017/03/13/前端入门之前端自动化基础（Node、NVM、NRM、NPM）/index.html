@@ -1,0 +1,1325 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|黑体:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Node,NVM,NRM,NPM," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1、NodeJS概述NodeJS是Server side Javascript runtime, 服务端的一个JS运行时，就是一个JS运行环境。 2、NVM，Node版本控制管理工具NVM（Node Version Manager）Node版本管理工具，为什么需要版本管理呢？  node版本更新快 不同的项目依赖不同的node版本，项目之间经常要切换Node版本  2.1环境变量; 环境变量的变量">
+<meta name="keywords" content="Node,NVM,NRM,NPM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端入门之前端自动化基础（Node、NVM、NRM、NPM）">
+<meta property="og:url" content="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/index.html">
+<meta property="og:site_name" content="香草朱.前端">
+<meta property="og:description" content="1、NodeJS概述NodeJS是Server side Javascript runtime, 服务端的一个JS运行时，就是一个JS运行环境。 2、NVM，Node版本控制管理工具NVM（Node Version Manager）Node版本管理工具，为什么需要版本管理呢？  node版本更新快 不同的项目依赖不同的node版本，项目之间经常要切换Node版本  2.1环境变量; 环境变量的变量">
+<meta property="og:image" content="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/images/path_01.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/images/path_02.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/images/path_03.jpg">
+<meta property="og:updated_time" content="2017-05-29T08:00:22.303Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端入门之前端自动化基础（Node、NVM、NRM、NPM）">
+<meta name="twitter:description" content="1、NodeJS概述NodeJS是Server side Javascript runtime, 服务端的一个JS运行时，就是一个JS运行环境。 2、NVM，Node版本控制管理工具NVM（Node Version Manager）Node版本管理工具，为什么需要版本管理呢？  node版本更新快 不同的项目依赖不同的node版本，项目之间经常要切换Node版本  2.1环境变量; 环境变量的变量">
+<meta name="twitter:image" content="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/images/path_01.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/"/>
+
+
+
+
+
+  <title>前端入门之前端自动化基础（Node、NVM、NRM、NPM） | 香草朱.前端</title>
+<link rel="stylesheet" href="/css/prism-solarizedlight.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bc8c7953f3ece7c5aa5a9439548c389a";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">香草朱.前端</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">前端开发实践总结</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiangcaozhu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="香草朱.前端">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">前端入门之前端自动化基础（Node、NVM、NRM、NPM）</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-13T20:46:25+08:00">
+                2017-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端自动化/" itemprop="url" rel="index">
+                    <span itemprop="name">前端自动化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1、NodeJS概述"><a href="#1、NodeJS概述" class="headerlink" title="1、NodeJS概述"></a>1、NodeJS概述</h2><p>NodeJS是Server side Javascript runtime, 服务端的一个JS运行时，就是一个JS运行环境。</p>
+<h2 id="2、NVM，Node版本控制管理工具"><a href="#2、NVM，Node版本控制管理工具" class="headerlink" title="2、NVM，Node版本控制管理工具"></a>2、NVM，Node版本控制管理工具</h2><p>NVM（Node Version Manager）Node版本管理工具，为什么需要版本管理呢？</p>
+<ul>
+<li>node版本更新快</li>
+<li>不同的项目依赖不同的node版本，项目之间经常要切换Node版本</li>
+</ul>
+<h3 id="2-1环境变量"><a href="#2-1环境变量" class="headerlink" title="2.1环境变量;"></a>2.1环境变量;</h3><ul>
+<li>环境变量的变量名是不区分大小写的</li>
+<li>PATH变量是一个特殊值，变量名只能是path/PATH,追加在该路径后面的所以程序，都可以再全局目录下，直接运行相关exe程序。</li>
+<li>环境变量包括：用户环境变量与系统变量。用户环境变量就是window当前用户的环境变量，其他用户不能访问。系统变量指的是所用当前系统用户共享的变量；<strong>建议将自己配置的环境变量放在用户变量中，用户变量比较干净</strong></li>
+</ul>
+<h3 id="2-2如何设置环境变量（win10）"><a href="#2-2如何设置环境变量（win10）" class="headerlink" title="2.2如何设置环境变量（win10）"></a>2.2如何设置环境变量（win10）</h3><p>此电脑——&gt;右击属性-高级系统设置——&gt;高级——&gt;环境变量——&gt;用户变量——&gt;新建变量——&gt;在path变量中追加刚才新建的变量。<br><img src="images/path_01.jpg" alt="新建环境变量"><br><img src="images/path_02.jpg" alt="新建环境变量"><br><img src="images/path_03.jpg" alt="添加环境变量"></p>
+<h3 id="2-3window版本NVM的安装"><a href="#2-3window版本NVM的安装" class="headerlink" title="2.3window版本NVM的安装"></a>2.3window版本NVM的安装</h3><h4 id="2-3-1第一步："><a href="#2-3-1第一步：" class="headerlink" title="2.3.1第一步："></a>2.3.1第一步：</h4><p>github.com上下载nvm安装包，<a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="external">nvm-noinstall.zip</a>;</p>
+<h4 id="2-3-2第二步："><a href="#2-3-2第二步：" class="headerlink" title="2.3.2第二步："></a>2.3.2第二步：</h4><p>解压nvm-noinstall.zip,然后把文件夹重命名为nvm。在自己喜欢的盘符上（我这里放在<code>C:\</code>根目录下）新建一个文件夹。比如：<code>FrontEndDev</code>，最后把刚刚nvm文件夹复制到<code>FrontEndDev</code>文件夹下。</p>
+<h4 id="2-3-3第三步："><a href="#2-3-3第三步：" class="headerlink" title="2.3.3第三步："></a>2.3.3第三步：</h4><p>以管理员身份双击运行<code>FrontEndDev</code>里面的nvm下的<code>install.cmd</code>文件,在FrontEndDev目录下新建一个setting.txt文本文件，以下是输入新建的txt文件要保存到哪个路径下（必须是nvm.exe同级目录）提示如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter the absolute path where the zip file is extracted/copied to: C:\FrontEndDev\nvm\</div><div class="line">//路径地址一定要加最后`\`否则setting.txt文件会跑到上一级目录里。</div></pre></td></tr></table></figure>
+<h4 id="2-3-4第四步："><a href="#2-3-4第四步：" class="headerlink" title="2.3.4第四步："></a>2.3.4第四步：</h4><p>创建成功后会自动弹出setting.txt，根据实际情况需要配置选项如下：</p>
+<p>root:表示nvm所在的根目录；<br>path：表示nodejs所在的目录，这个目录会自动生成，它与nvm目录平级；<br>arch：表示当前64位操作系统；<br>proxy：表示使用代理下载；<br>node_mirror：使用国内淘宝node镜像安装node；<br>npm_mirror：使用国内淘宝npm镜像安装npm；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//当前的根文件</div><div class="line">root: C:\FrontEndDev </div><div class="line">//今后node会安装在C:\FrontEndDev\nodejs目录里</div><div class="line">path: C:\FrontEndDev\nodejs </div><div class="line">//当前操作系统位数</div><div class="line">arch: 32 </div><div class="line">//代理服务</div><div class="line">proxy: none</div><div class="line">//更改node镜像</div><div class="line">node_mirror: https://npm.taobao.org/mirrors/node/</div><div class="line">//更改npm镜像</div><div class="line">npm_mirror: https://npm.taobao.org/mirrors/npm/</div></pre></td></tr></table></figure>
+<h4 id="2-3-5第五步："><a href="#2-3-5第五步：" class="headerlink" title="2.3.5第五步："></a>2.3.5第五步：</h4><p>配置node、nvm、npm环境变量;<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//nvm的路径</div><div class="line">NVM_HOME=C:\FrontEndDev\nvm</div><div class="line">//nodejs路径</div><div class="line">NVM_SYMLINK=C:\FrontEndDev\nodejs</div><div class="line">//NPM的路径</div><div class="line">NPM_HOME=C:\FrontEndDev\nvm\npm</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>最后向用户变量中添加环境变量：PATH变量中追加<code>%NVM_HOME%;%NVM_SYMLINK%;%NPM_HOME%</code>；</p>
+</blockquote>
+<h4 id="2-3-6第六步："><a href="#2-3-6第六步：" class="headerlink" title="2.3.6第六步："></a>2.3.6第六步：</h4><p>验证是否安装成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">C:\Users\huolicn\Desktop&gt;nvm -v</div><div class="line">Usage:</div><div class="line">  nvm arch                     : 32 or 64 bit mode.</div><div class="line">  nvm install &lt;version&gt; [arch] : node.js version</div><div class="line">  nvm list [available]         : List the node.js installations.</div><div class="line">  nvm on                       : Enable node.js version management.</div><div class="line">  nvm off                      : Disable node.js version management.</div><div class="line">  nvm proxy [url]              : Set a proxy to use for downloads.</div><div class="line">                                 Set [url] to "none" to remove the proxy.</div><div class="line">  nvm node_mirror [url]        : Set the node mirror. </div><div class="line">  nvm npm_mirror [url]         : Set the npm mirror.</div><div class="line">  nvm uninstall &lt;version&gt;      : The version must be a specific version.</div><div class="line">  nvm use [version] [arch]     : Switch to use the specified version.</div><div class="line">  nvm root [path]              : Set different versions of node.js.                            </div><div class="line">  nvm version(v)               : Displays the current running version of nvm for Windows.</div></pre></td></tr></table></figure>
+<h4 id="2-3-7第七步："><a href="#2-3-7第七步：" class="headerlink" title="2.3.7第七步："></a>2.3.7第七步：</h4><p>安装nodejs/NPM的版本<br>如果你的电脑系统是32 位的，那么在下载nodejs版本的时候，一定要指明 32 如：<code>nvm install 5.11.0 32</code>这样在32位的电脑系统中，才可以使用，默认是64位的。<br>在任意目录，打开cmd进入命令模式，输入:</p>
+<ul>
+<li><p>安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm install 6.10.3 32</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm use 6.10.3 32</div></pre></td></tr></table></figure>
+</li>
+<li><p>查询</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm list</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-NVR-的安装"><a href="#3-NVR-的安装" class="headerlink" title="3 NVR 的安装"></a>3 NVR 的安装</h2><p>nrm（npm registry manager）也就是npm的镜像源管理工具，可以查看可利用的镜像资源，同时可以切换镜像源。</p>
+<h3 id="3-1-常用命名"><a href="#3-1-常用命名" class="headerlink" title="3.1 常用命名"></a>3.1 常用命名</h3><ul>
+<li>安装命令</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span> npm install -g nrm</div></pre></td></tr></table></figure>
+<ul>
+<li>展示所有可切换的镜像地址</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span> nrm ls </div><div class="line"></div><div class="line">npm ---- https://registry.npmjs.org/</div><div class="line">cnpm --- http://r.cnpmjs.org/</div><div class="line">*taobao - https://registry.npm.taobao.org/</div><div class="line">nj ----- https://registry.nodejitsu.com/</div><div class="line">rednpm - http://registry.mirror.cqupt.edu.cn/</div><div class="line">npmMirror  https://skimdb.npmjs.com/registry/</div><div class="line">edunpm - http://registry.enpmjs.org/</div></pre></td></tr></table></figure>
+<ul>
+<li>切换镜像地址</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nrm use cnpm</div></pre></td></tr></table></figure>
+<ul>
+<li>测试镜像网络速度</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span> nrm test </div><div class="line"></div><div class="line">npm ---- 1192ms</div><div class="line">cnpm --- 522ms</div><div class="line">*taobao - 518ms</div><div class="line">nj ----- Fetch Error</div><div class="line">rednpm - 628ms</div><div class="line">npmMirror  1436ms</div><div class="line">edunpm - Fetch Error</div></pre></td></tr></table></figure>
+<h2 id="4、NPM，Node包管理管工具"><a href="#4、NPM，Node包管理管工具" class="headerlink" title="4、NPM，Node包管理管工具"></a>4、NPM，Node包管理管工具</h2><h3 id="4-1-NPM概述"><a href="#4-1-NPM概述" class="headerlink" title="4.1 NPM概述"></a>4.1 NPM概述</h3><p>NPM（Node Package Manager）Node应用程序依赖包的管理工具。为什么要使用npm，node是清内核的，第三方提供很多node包，同时彼此存在包依赖关系。</p>
+<h3 id="4-2-NPM全局缓存设置"><a href="#4-2-NPM全局缓存设置" class="headerlink" title="4.2 NPM全局缓存设置"></a>4.2 NPM全局缓存设置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm config set cache 'C:\FrontEndDev\node_cache'</div></pre></td></tr></table></figure>
+<p>或<br>搜索NPM配置文件<code>.npmrc</code>,在里面设置相关缓存配置：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cache=C:\FrontEndDev\node_cache</div></pre></td></tr></table></figure></p>
+<h3 id="4-3-NPM项目中起步常用命令"><a href="#4-3-NPM项目中起步常用命令" class="headerlink" title="4.3 NPM项目中起步常用命令"></a>4.3 NPM项目中起步常用命令</h3><ul>
+<li>初始化项目新建一个package.json包</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init &lt;--yes参数走默认配置&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>更换NPM镜像，使用淘宝镜像安装包</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm config set registry https://registry.npm.taoba.org </div><div class="line">npm config set &lt;key&gt; &lt;value&gt;//设置</div><div class="line">npm config list//查看</div></pre></td></tr></table></figure>
+<p>或<br>搜索NPM配置文件<code>.npmrc</code>,在里面设置相关缓存配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">registry=https://registry.npm.taobao.org/</div></pre></td></tr></table></figure>
+<ul>
+<li>查看npm相关设置情况</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">npm config ls -l</div><div class="line"></div><div class="line">registry = "https://registry.npm.taobao.org/"</div><div class="line">cache = "C:\\Users\\huolicn\\AppData\\Roaming\\npm-cache"</div><div class="line">globalconfig = "C:\\FrontEndDev\\nodejs\\etc\\npmrc"</div><div class="line">globalignorefile = "C:\\FrontEndDev\\nodejs\\etc\\npmignore"</div><div class="line">node-version = "6.10.3"</div><div class="line">prefix = "C:\\FrontEndDev\\nodejs"</div><div class="line">proxy = null</div><div class="line">; registry = "https://registry.npmjs.org/" (overridden)</div></pre></td></tr></table></figure>
+<ul>
+<li>安装一个包，默认安装最新稳定版本</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install(i) &lt;package_name&gt;&lt;--save(-S)/--save-dev(-D)&gt;/&lt;-g&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>拆卸一个包</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm uninstall(i) &lt;package_name&gt;&lt;--save(-S)/--save-dev(-D)&gt;/&lt;-g&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意-g可以直接放到install的后面，我们以后也最好这样用，因为这样用，我们可以在cmd中上下箭头切换最近命令的时候，容易修改，更方便操作。安装完成后，我们就可以使用了。</p>
+</blockquote>
+<h3 id="4-4NPM安装常见错误"><a href="#4-4NPM安装常见错误" class="headerlink" title="4.4NPM安装常见错误"></a>4.4NPM安装常见错误</h3><h4 id="4-1在使用sass-loader或者gulp-sass时，插件依赖node-sass，而node-sass是部署在github-com上，使用命令行下载异常缓慢，基本都是以报如下错误："><a href="#4-1在使用sass-loader或者gulp-sass时，插件依赖node-sass，而node-sass是部署在github-com上，使用命令行下载异常缓慢，基本都是以报如下错误：" class="headerlink" title="4.1在使用sass-loader或者gulp-sass时，插件依赖node-sass，而node-sass是部署在github.com上，使用命令行下载异常缓慢，基本都是以报如下错误："></a>4.1在使用sass-loader或者gulp-sass时，插件依赖node-sass，而node-sass是部署在github.com上，使用命令行下载异常缓慢，基本都是以报如下错误：</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Downloading binary from https://github.com/sass/node-sass/releases/download/v4.5.0/win32-x64-48_binding.node</div><div class="line">Cannot download "https://github.com/sass/node-sass/releases/download/v4.5.0/win32-x64-48_binding.node":</div><div class="line">ESOCKETTIMEDOUT</div><div class="line">Hint: If github.com is not accessible in your location</div><div class="line">            try setting a proxy via HTTP_PROXY, e.g.</div><div class="line">            export HTTP_PROXY=http://example.com:1234</div><div class="line">or configure npm proxy via</div></pre></td></tr></table></figure>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>把npm设置成淘宝npm包镜像</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">npm config set registry https://registry.npm.taobao.org </div><div class="line">``` </div><div class="line">- 把node-sass设置成淘宝**node-sass镜像(重点)**</div><div class="line"></div><div class="line">``` shell</div><div class="line">npm config set sass-binary-site http://npm.taobao.org/mirrors/node-sass  </div><div class="line">``` </div><div class="line">- 一些二进制包编译时用,淘宝node源码镜像</div><div class="line"></div><div class="line">``` shell</div><div class="line">npm config set disturl https://npm.taobao.org/dist </div><div class="line">``` </div><div class="line">或</div><div class="line">直接使用安装命令，带参数</div><div class="line">``` shell</div><div class="line">npm install --save node-sass --sass-binary-site=http://npm.taobao.org/mirrors/node-sass</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat.png" alt="xiangcaozhu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="xiangcaozhu Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      xiangcaozhu
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/" title="前端入门之前端自动化基础（Node、NVM、NRM、NPM）">http://yoursite.com/2017/03/13/前端入门之前端自动化基础（Node、NVM、NRM、NPM）/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node/" rel="tag"># Node</a>
+          
+            <a href="/tags/NVM/" rel="tag"># NVM</a>
+          
+            <a href="/tags/NRM/" rel="tag"># NRM</a>
+          
+            <a href="/tags/NPM/" rel="tag"># NPM</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/23/前端入门之编辑器sublime text3/" rel="next" title="前端入门之编辑器sublime text3">
+                <i class="fa fa-chevron-left"></i> 前端入门之编辑器sublime text3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/15/前端入门之前端自动化工具（Gulp）/" rel="prev" title="前端入门之前端自动化工具（Gulp）">
+                前端入门之前端自动化工具（Gulp） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="xiangcaozhu" />
+          <p class="site-author-name" itemprop="name">xiangcaozhu</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiangcaozhu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/xiangcaozhu0204" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.awesomes.cn/" title="Top100库" target="_blank">Top100库</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://es6.ruanyifeng.com/" title="阮一峰blog" target="_blank">阮一峰blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.devdocs.io/" title="devdocs文档" target="_blank">devdocs文档</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://idesign.qq.com/#!index/site/tag/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF" title="腾讯CDC导航" target="_blank">腾讯CDC导航</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://75team.com/" title="奇舞团博客" target="_blank">奇舞团博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.alloyteam.com/" title="腾讯前端" target="_blank">腾讯前端</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://fex.baidu.com/" title="百度前端" target="_blank">百度前端</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.css88.com/" title="前端开发" target="_blank">前端开发</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、NodeJS概述"><span class="nav-number">1.</span> <span class="nav-text">1、NodeJS概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、NVM，Node版本控制管理工具"><span class="nav-number">2.</span> <span class="nav-text">2、NVM，Node版本控制管理工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1环境变量"><span class="nav-number">2.1.</span> <span class="nav-text">2.1环境变量;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2如何设置环境变量（win10）"><span class="nav-number">2.2.</span> <span class="nav-text">2.2如何设置环境变量（win10）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3window版本NVM的安装"><span class="nav-number">2.3.</span> <span class="nav-text">2.3window版本NVM的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1第一步："><span class="nav-number">2.3.1.</span> <span class="nav-text">2.3.1第一步：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2第二步："><span class="nav-number">2.3.2.</span> <span class="nav-text">2.3.2第二步：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-3第三步："><span class="nav-number">2.3.3.</span> <span class="nav-text">2.3.3第三步：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-4第四步："><span class="nav-number">2.3.4.</span> <span class="nav-text">2.3.4第四步：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-5第五步："><span class="nav-number">2.3.5.</span> <span class="nav-text">2.3.5第五步：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-6第六步："><span class="nav-number">2.3.6.</span> <span class="nav-text">2.3.6第六步：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-7第七步："><span class="nav-number">2.3.7.</span> <span class="nav-text">2.3.7第七步：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-NVR-的安装"><span class="nav-number">3.</span> <span class="nav-text">3 NVR 的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-常用命名"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 常用命名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、NPM，Node包管理管工具"><span class="nav-number">4.</span> <span class="nav-text">4、NPM，Node包管理管工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-NPM概述"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 NPM概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-NPM全局缓存设置"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 NPM全局缓存设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-NPM项目中起步常用命令"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 NPM项目中起步常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4NPM安装常见错误"><span class="nav-number">4.4.</span> <span class="nav-text">4.4NPM安装常见错误</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1在使用sass-loader或者gulp-sass时，插件依赖node-sass，而node-sass是部署在github-com上，使用命令行下载异常缓慢，基本都是以报如下错误："><span class="nav-number">4.4.1.</span> <span class="nav-text">4.1在使用sass-loader或者gulp-sass时，插件依赖node-sass，而node-sass是部署在github.com上，使用命令行下载异常缓慢，基本都是以报如下错误：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiangcaozhu</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.1"></script>
+
+
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
