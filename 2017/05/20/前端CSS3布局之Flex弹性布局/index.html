@@ -107,13 +107,13 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/20/前端CSS3布局之Flex弹性布局/index.html">
 <meta property="og:site_name" content="香草朱.前端">
 <meta property="og:description" content="1、flex布局概述Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 Flex布局，可以简便、完整、响应式地实现各种页面布局。 布局的传统解决方案，基于盒状模型，依赖 display属性 + position属性 + float属性。 任何一个容器都可以指定为Flex布局。  块级元素：display：flex; 内联元素：display：inline-">
-<meta property="og:image" content="http://yoursite.com/2017/05/20/前端CSS3布局之Flex弹性布局/images/flex-attr.jpg">
-<meta property="og:image" content="http://yoursite.com/2017/05/20/前端CSS3布局之Flex弹性布局/images/flex-align-item.png">
-<meta property="og:updated_time" content="2017-05-29T08:43:39.557Z">
+<meta property="og:image" content="http://yoursite.com/images/flex-attr.jpg">
+<meta property="og:image" content="http://yoursite.com/images/flex-align-item.png">
+<meta property="og:updated_time" content="2017-06-25T04:29:06.340Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flex弹性布局从语法到布局梳理总结">
 <meta name="twitter:description" content="1、flex布局概述Flex是Flexible Box的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。 Flex布局，可以简便、完整、响应式地实现各种页面布局。 布局的传统解决方案，基于盒状模型，依赖 display属性 + position属性 + float属性。 任何一个容器都可以指定为Flex布局。  块级元素：display：flex; 内联元素：display：inline-">
-<meta name="twitter:image" content="http://yoursite.com/2017/05/20/前端CSS3布局之Flex弹性布局/images/flex-attr.jpg">
+<meta name="twitter:image" content="http://yoursite.com/images/flex-attr.jpg">
 
 
 
@@ -415,7 +415,7 @@
 <p>设为Flex布局以后，子元素的<code>float</code>、<code>clear</code>和<code>vertical-align</code>属性将失效。</p>
 </blockquote>
 <p>本文参考：<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool" target="_blank" rel="external">阮一峰flex布局</a>；</p>
-<h2 id="2、flex布局基本属性"><a href="#2、flex布局基本属性" class="headerlink" title="2、flex布局基本属性"></a>2、flex布局基本属性</h2><p><img src="images/flex-attr.jpg" alt="flex"></p>
+<h2 id="2、flex布局基本属性"><a href="#2、flex布局基本属性" class="headerlink" title="2、flex布局基本属性"></a>2、flex布局基本属性</h2><p><img src="/images/flex-attr.jpg" alt="flex"></p>
 
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.flex-items</span>&#123;</div><div class="line">    <span class="attribute">flex-grow</span>: &lt;number&gt;; <span class="comment">/* default 0 */</span></div><div class="line">    <span class="attribute">flex-shrink</span>: &lt;number&gt;; <span class="comment">/* default 1 */</span></div><div class="line">    <span class="attribute">flex-basis</span>: &lt;length&gt; | auto; <span class="comment">/* default auto */</span></div><div class="line">    <span class="attribute">flex</span>: none | [ &lt;<span class="string">'flex-grow'</span>&gt; &lt;<span class="string">'flex-shrink'</span>&gt;? || &lt;<span class="string">'flex-basis'</span>&gt; ]</div><div class="line">    align-self: auto | flex-start | flex-end | center | baseline | stretch;</div><div class="line">    <span class="attribute">order</span>:&lt;number&gt;; <span class="comment">/* default 0 */</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -427,7 +427,7 @@
 <blockquote>
 <p>该布局特点：<code>justify-content</code>或<code>align-conten</code>属性无效，不起作用。只能通过<code>align-item</code>属性来调整，上中下，左中右对齐。</p>
 </blockquote>
-<h3 id="3-2多行或多列布局"><a href="#3-2多行或多列布局" class="headerlink" title="3.2多行或多列布局"></a>3.2多行或多列布局</h3><p><img src="images/flex-align-item.png" alt="flex"></p>
+<h3 id="3-2多行或多列布局"><a href="#3-2多行或多列布局" class="headerlink" title="3.2多行或多列布局"></a>3.2多行或多列布局</h3><p><img src="/images/flex-align-item.png" alt="flex"></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.flex-container&#123;</div><div class="line">    display:flex;</div><div class="line">    flex-dirction:row/column;</div><div class="line">    flex-wrap:wrap;//关键</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>该布局特点：当同时设置<code>justify-content</code>与<code>align-content</code>属性时，<code>align-item</code>属性失效，不起作用。<strong>当同时设置<code>justify-content</code>与<code>align-content</code>的属性为<code>stretch</code>时</strong>，设置<code>align-item</code>属性有效，<code>align-item</code>可以理解为相对于在交叉区域里的上中下，左中右的对齐。（如图1）</p>
@@ -669,7 +669,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -691,7 +691,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
